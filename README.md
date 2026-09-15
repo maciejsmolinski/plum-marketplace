@@ -55,6 +55,9 @@ with `@`.
 /plum:write-simply Rewrite the intro of @README.md for a new reader
 ```
 
+Expect short sentences and everyday words. The skill keeps the technical terms
+it needs and drops the rest, so it changes the style, not the depth.
+
 ### share-opinion
 
 ```
