@@ -1,0 +1,71 @@
+name: validate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install Claude Code
+        run: npm install -g @anthropic-ai/claude-code
+
+      - name: Validate marketplace manifest
+        run: claude plugin validate . --strict
+
+      - name: Validate plugin manifest
+        run: claude plugin validate ./plugins/plum --strict
+
+      - name: Validate skills
+        run: claude plugin validate ./plugins/plum/skills --strict
+
+  bump-guard:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Require a version bump when the plugin changes
+        env:
+          EVENT: ${{ github.event_name }}
+          BASE_REF: ${{ github.base_ref }}
+          BEFORE: ${{ github.event.before }}
+        run: |
+          set -euo pipefail
+
+          if [ "$EVENT" = "pull_request" ]; then
+            base=$(git merge-base "origin/$BASE_REF" HEAD)
+          else
+            base="$BEFORE"
+          fi
+
+          # A force-push or the initial push gives a base that isn't in history.
+          if ! git cat-file -e "$base^{commit}" 2>/dev/null; then
+            echo "Base $base is unreachable (force-push or initial push); skipping."
+            exit 0
+          fi
+
+          if git diff --quiet "$base" HEAD -- plugins/plum/; then
+            echo "plugins/plum unchanged; no bump required."
+            exit 0
+          fi
+
+          manifest=plugins/plum/.claude-plugin/plugin.json
+          old=$(git show "$base:$manifest" | jq -r '.version // empty')
+          new=$(jq -r '.version // empty' "$manifest")
+
+          if [ -n "$old" ] && [ "$old" = "$new" ]; then
+            echo "::error file=$manifest::plugins/plum changed but version is still $old — bump it"
+            exit 1
+          fi
+
+          echo "Version bumped: ${old:-<none>} -> ${new:-<none>}"
