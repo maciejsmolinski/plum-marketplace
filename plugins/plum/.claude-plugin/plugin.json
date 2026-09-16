@@ -5,5 +5,8 @@
   "author": {
     "name": "Maciej Smoliński",
     "email": "contact@maciejsmolinski.com"
-  }
+  },
+  "repository": "https://github.com/maciejsmolinski/plum-marketplace",
+  "license": "MIT",
+  "keywords": ["skills", "writing", "review", "plain-english"]
 }

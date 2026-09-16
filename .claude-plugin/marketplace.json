@@ -4,9 +4,7 @@
     "name": "Maciej Smoliński",
     "email": "contact@maciejsmolinski.com"
   },
-  "metadata": {
-    "description": "Skills and utilities for improving agentic outputs"
-  },
+  "description": "Skills and utilities for improving agentic outputs",
   "plugins": [
     {
       "name": "plum",
