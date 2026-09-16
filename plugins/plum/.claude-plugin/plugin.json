@@ -1,7 +1,7 @@
 {
   "name": "plum",
   "description": "A collection of skills and utilities to improve agentic outputs",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": {
     "name": "Maciej Smoliński",
     "email": "contact@maciejsmolinski.com"
