@@ -28,13 +28,13 @@ claude plugin uninstall plum@plum-marketplace
 
 ## Skills
 
-| Skill | What it does | How to run it |
-| --- | --- | --- |
-| `write-simply` | Makes the agent write documents and answers in plain English, so a human can read them without effort. | `/plum:write-simply` |
-| `share-opinion` | Makes the agent give you a blunt, direct review. It tells you what is weak and why, instead of being polite. | `/plum:share-opinion` |
+| Skill | What it does | Command | Prompt phrase |
+| --- | --- | --- | --- |
+| `write-simply` | Makes the agent write documents and answers in plain English, so a human can read them without effort. | `/plum:write-simply` | `write simply` |
+| `share-opinion` | Makes the agent give you a blunt, direct review. It tells you what is weak and why, instead of being polite. | `/plum:share-opinion` | — |
 
-Every skill here runs on request only. Claude never picks one on its own, so
-you stay in control of when it changes its style.
+`share-opinion` runs only when you call it. `write-simply` also usually starts
+on its own when you ask Claude to "write simply" in your prompt.
 
 ## Usage
 
@@ -53,6 +53,10 @@ with `@`.
 
 ```
 /plum:write-simply Rewrite the intro of @README.md for a new reader
+```
+
+```
+What's the bulkhead pattern? Write simply
 ```
 
 Expect short sentences and everyday words. The skill keeps the technical terms

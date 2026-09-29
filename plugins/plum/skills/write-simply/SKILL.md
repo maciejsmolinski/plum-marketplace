@@ -1,7 +1,6 @@
 ---
 name: write-simply
-description: Use to help the agent produce documents or responses that are written in a language that is easy to understand and follow, and is meant to be read by a human reader.
-disable-model-invocation: true
+description: Use to help the agent produce documents or responses that are written in a language that is easy to understand and follow, and is meant to be read by a human reader. Trigger automatically when the user asks to write something simply.
 user-invocable: true
 ---
 
